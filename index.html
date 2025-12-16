@@ -1,0 +1,56 @@
+<!DOCTYPE html>
+<html lang="pt-BR">
+<head>
+  <meta charset="UTF-8" />
+  <title>ACQUASHOW PISCINAS — Login</title>
+  <meta name="viewport" content="width=device-width, initial-scale=1.0" />
+
+  <!-- Estilos (CSS na raiz) -->
+  <link rel="stylesheet" href="./styles.css" />
+</head>
+<body>
+  <main class="login-wrapper">
+    <section class="login-card">
+      <h1>ACQUASHOW PISCINAS</h1>
+      <p class="muted">Acesse com e-mail e senha</p>
+
+      <form id="loginForm">
+        <div class="form-group">
+          <label for="email">E-mail</label>
+          <input
+            type="email"
+            id="email"
+            placeholder="seuemail@exemplo.com"
+            required
+          />
+        </div>
+
+        <div class="form-group">
+          <label for="password">Senha</label>
+          <input
+            type="password"
+            id="password"
+            placeholder="Sua senha"
+            required
+          />
+        </div>
+
+        <button type="submit" class="btn-primary">
+          Entrar
+        </button>
+      </form>
+
+      <div id="loginMsg" style="margin-top: 12px; color: #c00;"></div>
+    </section>
+  </main>
+
+  <!-- Firebase SDKs (versão compat) -->
+  <script src="https://www.gstatic.com/firebasejs/9.6.11/firebase-app-compat.js"></script>
+  <script src="https://www.gstatic.com/firebasejs/9.6.11/firebase-auth-compat.js"></script>
+  <script src="https://www.gstatic.com/firebasejs/9.6.11/firebase-firestore-compat.js"></script>
+
+  <!-- Seus arquivos JS na RAIZ -->
+  <script src="./firebase.js"></script>
+  <script src="./auth.js"></script>
+</body>
+</html>
