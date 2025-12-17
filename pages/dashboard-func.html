@@ -1,0 +1,111 @@
+<!DOCTYPE html>
+<html lang="pt-BR">
+<head>
+  <meta charset="UTF-8" />
+  <meta name="viewport" content="width=device-width, initial-scale=1.0" />
+  <title>Dashboard Funcionário</title>
+
+  <!-- CSS na raiz -->
+  <link rel="stylesheet" href="../styles.css" />
+</head>
+<body>
+
+  <header class="user-info">
+    <h1>Dashboard Funcionário</h1>
+    <section id="cardNotificacoes" class="card" style="display:none; background:#fff8cc; border-left:5px solid #e6b800; margin-bottom:20px;">
+  <h2>Notificações do Dia</h2>
+  <ul id="listaNotificacoes" class="piscinas-list"></ul>
+</section>
+
+    <p>Login e papel OK.</p>
+  </header>
+
+  <main>
+
+    <!-- ========================= -->
+    <!-- MINHAS PISCINAS -->
+    <!-- ========================= -->
+    <section class="card">
+      <h2>Minhas Piscinas</h2>
+
+      <p id="semPiscinasFunc" style="display:none; color:#777;">
+        Nenhuma piscina atribuída para você.
+      </p>
+
+      <ul id="listaMinhasPiscinas"></ul>
+    </section>
+
+    <div id="boxLembretesPiscina" class="card" style="display:none; margin-bottom:15px; background:#fff3cd; border-left:4px solid #e0a800;">
+  <h3>Lembretes desta piscina</h3>
+  <ul id="listaLembretesPiscina" class="piscinas-list"></ul>
+</div>
+
+    <!-- ========================= -->
+    <!-- REGISTRO DE VISITAS -->
+    <!-- ========================= -->
+    <section id="secao-visitas" class="card" style="margin-top: 20px; display: none;">
+      <h2 id="titulo-visitas">Visitas</h2>
+
+      <form id="form-visita" style="margin-bottom: 16px;">
+        <!-- piscina selecionada -->
+        <input type="hidden" id="visita-piscina-id" />
+
+        <div>
+          <label for="visita-data">Data e hora da visita:</label><br />
+          <input type="datetime-local" id="visita-data" required />
+        </div>
+
+        <div style="margin-top: 8px;">
+          <label for="visita-produtos">Produtos utilizados:</label><br />
+          <textarea id="visita-produtos" rows="2" placeholder="Ex: Cloro 200g, Elevador de pH 100ml"></textarea>
+        </div>
+
+        <div style="margin-top: 8px;">
+          <label for="visita-observacoes">Observações:</label><br />
+          <textarea id="visita-observacoes" rows="3" placeholder="Ex: Piscina com muitas folhas, aspirada, etc."></textarea>
+        </div>
+
+        <div style="margin-top: 8px;">
+          <label for="visita-proxima">Próxima visita (opcional):</label><br />
+          <input type="date" id="visita-proxima" />
+        </div>
+
+        <button type="submit" style="margin-top: 10px;">
+          Salvar visita
+        </button>
+      </form>
+
+      <h3>Histórico de visitas</h3>
+      <div id="lista-visitas">
+        <p>Nenhuma visita registrada ainda.</p>
+      </div>
+    </section>
+
+    <!-- ========================= -->
+    <!-- EMERGÊNCIAS -->
+    <!-- ========================= -->
+    <section class="card" style="margin-top:20px;">
+      <h2>
+        Emergências
+        <span id="badgeEmergFunc" class="badge" style="display:none;"></span>
+      </h2>
+
+      <p id="msgEmergFunc" style="display:none;">Nenhuma emergência aberta para você.</p>
+      <ul id="listaEmergFunc"></ul>
+    </section>
+
+  </main>
+
+  <!-- Firebase SDKs (compat) -->
+  <script src="https://www.gstatic.com/firebasejs/9.6.11/firebase-app-compat.js"></script>
+  <script src="https://www.gstatic.com/firebasejs/9.6.11/firebase-auth-compat.js"></script>
+  <script src="https://www.gstatic.com/firebasejs/9.6.11/firebase-firestore-compat.js"></script>
+
+  <!-- Arquivos na raiz -->
+  <script src="../firebase.js"></script>
+  <script src="../auth.js"></script>
+
+  <!-- JS específico do funcionário -->
+  <script src="../assetsjs/dashboard-func.js"></script>
+</body>
+</html>

@@ -1,0 +1,372 @@
+<!DOCTYPE html>
+<html lang="pt-BR">
+<head>
+  <meta charset="UTF-8" />
+  <meta name="viewport" content="width=device-width, initial-scale=1.0" />
+  <title>ACQUASHOW - Dashboard ADM</title>
+  <style>
+    body {
+      font-family: system-ui, Arial, sans-serif;
+      margin: 0;
+      padding: 16px;
+      background: #f3f7fb;
+    }
+
+    header {
+      display: flex;
+      justify-content: space-between;
+      align-items: center;
+      margin-bottom: 24px;
+    }
+
+    h1 {
+      margin: 0;
+      font-size: 1.6rem;
+    }
+
+    .user-info {
+      font-size: 0.9rem;
+      color: #555;
+    }
+
+    .card {
+      background: #fff;
+      border-radius: 12px;
+      padding: 16px;
+      box-shadow: 0 2px 6px rgba(0,0,0,0.06);
+      margin-bottom: 20px;
+    }
+
+    .card h2 {
+      margin-top: 0;
+      font-size: 1.2rem;
+    }
+
+    label {
+      display: block;
+      font-size: 0.9rem;
+      margin-top: 8px;
+      margin-bottom: 4px;
+    }
+
+    input, select, textarea {
+      width: 100%;
+      padding: 8px;
+      margin-bottom: 6px;
+      border-radius: 6px;
+      border: 1px solid #ccc;
+      box-sizing: border-box;
+    }
+
+    button {
+      padding: 10px 16px;
+      border-radius: 8px;
+      border: none;
+      background: #00a5e9;
+      color: #fff;
+      font-weight: 600;
+      cursor: pointer;
+      margin-right: 8px;
+    }
+
+    button:hover {
+      opacity: 0.9;
+    }
+
+    .piscinas-list {
+      list-style: none;
+      padding: 0;
+      margin: 0;
+    }
+
+    .piscinas-list li {
+      padding: 8px 0;
+      border-bottom: 1px solid #eee;
+      font-size: 0.95rem;
+    }
+
+    .muted {
+      color: #777;
+      font-size: 0.85rem;
+    }
+
+    .badge {
+      background: red;
+      color: #fff;
+      padding: 2px 6px;
+      border-radius: 999px;
+      font-size: 0.8rem;
+      margin-left: 4px;
+    }
+  </style>
+</head>
+<body>
+  <header>
+    <h1>ACQUASHOW - Dashboard ADM</h1>
+    <div class="user-info">
+      Logado como: <span id="infoNome">Carregando...</span> |
+      Papel: <span id="infoPapel">ADM</span>
+    </div>
+  </header>
+
+  <main>
+
+    <!-- CARD 1: CADASTRAR NOVO USUÁRIO -->
+    <section class="card">
+      <h2>Cadastrar novo usuário (funcionário / cliente)</h2>
+
+      <form id="formCadastroUsuario">
+        <div class="form-group">
+          <label for="nomeUsuario">Nome completo</label>
+          <input id="nomeUsuario" type="text" />
+        </div>
+
+        <div class="form-group">
+          <label for="emailUsuario">E-mail</label>
+          <input id="emailUsuario" type="email" />
+        </div>
+
+        <div class="form-group">
+          <label for="telefoneUsuario">Telefone (WhatsApp)</label>
+          <input id="telefoneUsuario" type="text" />
+        </div>
+
+        <div class="form-group">
+          <label for="senhaUsuario">Senha inicial</label>
+          <input id="senhaUsuario" type="password" />
+        </div>
+
+        <div class="form-group">
+          <label for="roleUsuario">Nível de acesso</label>
+          <select id="roleUsuario">
+            <option value="">Selecione...</option>
+            <option value="ADM">Administrador</option>
+            <option value="FUNCIONARIO">Funcionário</option>
+            <option value="CLIENTE">Cliente</option>
+          </select>
+        </div>
+
+        <button type="submit">Criar usuário</button>
+      </form>
+    </section>
+
+    <!-- CARD 2: CADASTRAR / EDITAR PISCINA (FORM PRINCIPAL) -->
+    <section class="card">
+      <h2>Cadastrar nova piscina</h2>
+
+      <form id="formPiscina">
+        <!-- Cliente -->
+        <div class="form-group">
+          <label for="clientePiscina">Cliente</label>
+          <select id="clientePiscina">
+            <option value="">Selecione o cliente...</option>
+          </select>
+          <small class="muted">Os clientes cadastrados irão aparecer aqui.</small>
+        </div>
+
+        <!-- Responsável (funcionário) -->
+        <div class="form-group">
+          <label for="responsavelPiscina">Responsável (funcionário)</label>
+          <select id="responsavelPiscina">
+            <option value="">Selecione...</option>
+          </select>
+          <small class="muted">Os funcionários cadastrados irão aparecer aqui.</small>
+        </div>
+
+        <!-- Apelido / nome da piscina -->
+        <div class="form-group">
+          <label for="clienteNome">Nome do cliente (rótulo da piscina)</label>
+          <input id="clienteNome" type="text" />
+        </div>
+
+        <div class="form-group">
+          <label for="endereco">Endereço da piscina</label>
+          <input id="endereco" type="text" />
+        </div>
+
+        <div class="form-group">
+          <label for="volume">Volume (em litros)</label>
+          <input id="volume" type="number" />
+        </div>
+
+        <div class="form-group">
+          <label for="proximaVisita">Próxima visita</label>
+          <input id="proximaVisita" type="date" />
+        </div>
+
+        <!-- Botões -->
+        <button id="btnExportarClientes" type="button">Exportar clientes (CSV)</button>
+        <button id="btnSalvarPiscina" type="submit">Salvar piscina</button>
+
+        <p id="msgPiscina" class="muted"></p>
+      </form>
+
+      <label>Adicionar outra visita</label>
+<input type="date" id="novaVisitaExtra">
+<button type="button" id="btnAddVisita">Adicionar</button>
+
+<ul id="listaVisitas"></ul>
+
+      <input
+  type="text"
+  id="buscaCliente"
+  placeholder="🔍 Buscar cliente..."
+  style="width:100%; padding:8px; margin-bottom:10px;"
+/>
+
+      <!-- Lista de piscinas (para esse formulário) -->
+      <ul id="listaPiscinas" class="piscinas-list"></ul>
+      <p id="semPiscinas" class="muted" style="display:none;">Nenhuma piscina cadastrada.</p>
+    </section>
+
+    <!-- CARD 3: GERENCIAR PISCINAS (HISTÓRICO + EDIÇÃO RÁPIDA + CSV VISITAS) -->
+    <section class="card" style="margin-top: 20px;">
+      <h2>Gerenciar Piscinas</h2>
+
+      <div style="display: flex; gap: 20px; flex-wrap: wrap;">
+
+        <section class="card">
+  <h2>Tarefas do dia (gerar manualmente)</h2>
+  <p class="muted">
+    Gera tarefas de hoje para todos os funcionários, com base nas piscinas cadastradas.
+  </p>
+
+  <button id="btnGerarTarefasHoje" type="button">
+    Gerar tarefas de hoje
+  </button>
+
+  <p id="msgTarefasAdm" class="muted"></p>
+</section>
+
+<section class="card">
+  <h2>Funcionário faltou hoje?</h2>
+  <p class="muted">
+    Use essa opção quando um funcionário não for trabalhar.
+    As tarefas pendentes de hoje serão passadas para outro funcionário.
+  </p>
+
+  <div class="form-group">
+    <label for="funcFaltou">Funcionário que faltou</label>
+    <select id="funcFaltou">
+      <option value="">Selecione...</option>
+    </select>
+  </div>
+
+  <div class="form-group">
+    <label for="funcSubstituto">Enviar tarefas para</label>
+    <select id="funcSubstituto">
+      <option value="">Selecione...</option>
+    </select>
+  </div>
+
+  <button id="btnRepassarTarefasHoje" type="button">
+    Repassar tarefas de hoje
+  </button>
+
+  <p id="msgFaltaAdm" class="muted"></p>
+</section>
+
+<section class="card" style="margin-top: 20px;">
+  <h2>Falta de Funcionário</h2>
+
+  <label for="funcFaltaHoje">Selecione o funcionário que faltou:</label>
+  <select id="funcFaltaHoje">
+    <option value="">Selecione...</option>
+  </select>
+
+  <button id="btnGerarRedistribuicao">Gerar redistribuição de piscinas</button>
+
+  <div id="resultadoRedistribuicao" style="margin-top: 15px;"></div>
+</section>
+
+
+        <!-- LISTA DE PISCINAS PARA ADM -->
+        <div style="flex: 1 1 280px;">
+          <h3>Lista de piscinas</h3>
+          <p id="msgPiscinasAdm" style="display:none; color:#777;">Nenhuma piscina cadastrada.</p>
+          <ul id="listaPiscinasAdm" class="piscinas-list"></ul>
+        </div>
+
+        <!-- FORMULÁRIO DE EDIÇÃO RÁPIDA -->
+        <div style="flex: 1 1 280px;">
+          <h3>Editar dados da piscina</h3>
+
+          <form id="formEditarPiscina">
+            <input type="hidden" id="piscina-id-adm" />
+
+            <div>
+              <label for="piscina-cliente-adm">Nome do cliente:</label>
+              <input type="text" id="piscina-cliente-adm" required />
+            </div>
+
+            <div style="margin-top: 8px;">
+              <label for="piscina-endereco-adm">Endereço:</label>
+              <input type="text" id="piscina-endereco-adm" />
+            </div>
+
+            <div style="margin-top: 8px;">
+              <label for="piscina-volume-adm">Volume (litros):</label>
+              <input type="number" id="piscina-volume-adm" min="0" />
+            </div>
+
+            <div style="margin-top: 8px;">
+              <label for="piscina-responsavel-adm">ID do responsável (funcionário):</label>
+              <input type="text" id="piscina-responsavel-adm" placeholder="UID do funcionário" />
+            </div>
+
+            <div style="margin-top: 8px;">
+              <label for="piscina-proxima-adm">Próxima visita:</label>
+              <input type="date" id="piscina-proxima-adm" />
+            </div>
+
+            <button type="submit" style="margin-top: 10px;">
+              Salvar alterações
+            </button>
+          </form>
+        </div>
+      </div>
+
+      <!-- HISTÓRICO DE VISITAS DA PISCINA SELECIONADA -->
+      <div style="margin-top: 20px;">
+        <h3>
+          Histórico de visitas
+          <button id="btnExportarCsv" type="button" style="margin-left: 10px;">Exportar CSV</button>
+        </h3>
+        <div id="lista-visitas-adm">
+          <p>Selecione uma piscina para ver o histórico.</p>
+        </div>
+      </div>
+    </section>
+
+    <!-- CARD 4: EMERGÊNCIAS (ADM) -->
+    <section class="card">
+      <h2>
+        Emergências
+        <span id="badgeEmergAdm" class="badge"></span>
+      </h2>
+
+      <p id="msgEmergAdm" class="muted">Nenhuma emergência aberta.</p>
+      <ul id="listaEmergAdm" class="piscinas-list"></ul>
+    </section>
+
+<section class="card" style="margin-top: 20px;">
+  <h2>Lembretes das Piscinas</h2>
+  <p class="muted">Aqui aparecem todas as instruções especiais cadastradas em cada piscina.</p>
+
+  <ul id="listaLembretesAdm" class="piscinas-list"></ul>
+  <p id="msgLembretesAdm" class="muted" style="display:none;">Nenhum lembrete cadastrado.</p>
+</section>
+
+  </main>
+
+  <!-- Firebase SDKs (compat) -->
+  <script src="https://www.gstatic.com/firebasejs/9.6.11/firebase-app-compat.js"></script>
+  <script src="https://www.gstatic.com/firebasejs/9.6.11/firebase-auth-compat.js"></script>
+  <script src="https://www.gstatic.com/firebasejs/9.6.11/firebase-firestore-compat.js"></script>
+
+  <!-- Seus arquivos JS -->
+  <script src="../firebase.js"></script>
+  <script src="../auth.js"></script>
+  <script src="../assetsjs/dashboard-adm.js"></script>
+</body>
+</html>

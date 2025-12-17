@@ -1,0 +1,75 @@
+<!DOCTYPE html>
+<html lang="pt-BR">
+<head>
+  <meta charset="UTF-8" />
+  <title>Dashboard Cliente - AcquaShow Piscinas</title>
+
+  <!-- CSS: volta uma pasta e pega o styles.css da RAIZ -->
+  <link rel="stylesheet" href="../styles.css" />
+</head>
+<body>
+  <header class="topo">
+    <h1>AcquaShow Piscinas</h1>
+    <div class="topo-info">
+      <span id="clienteNomeTopo">Cliente</span>
+      <button id="btnLogout">Sair</button>
+    </div>
+  </header>
+
+  <main class="container-dashboard">
+    <!-- Bloco principal -->
+    <section class="card">
+      <h2>Informações da Piscina</h2>
+      <p><strong>Funcionário responsável:</strong> <span id="funcionarioNome">-</span></p>
+      <p><strong>Endereço:</strong> <span id="enderecoPiscina">-</span></p>
+      <p><strong>Volume:</strong> <span id="volumePiscina">-</span></p>
+      <p><strong>Próxima visita:</strong> <span id="proximaVisita">-</span></p>
+    </section>
+
+    <!-- Histórico de visitas -->
+    <section class="card">
+      <h2>Histórico de Visitas</h2>
+      <table>
+        <thead>
+          <tr>
+            <th>Data</th>
+            <th>Funcionário</th>
+            <th>Observação</th>
+          </tr>
+        </thead>
+        <tbody id="tabelaHistorico">
+          <!-- Linhas adicionadas via JS -->
+        </tbody>
+      </table>
+      <p id="msgSemVisitas" style="display:none;">Nenhuma visita registrada ainda.</p>
+    </section>
+
+    <!-- Emergência -->
+    <section class="card">
+      <h2>Atendimento de Emergência</h2>
+      <p>Escolha o que está acontecendo com sua piscina:</p>
+      <div class="botoes-emergencia">
+        <button class="btnEmergencia" data-tipo="Piscina suja">Piscina suja</button>
+        <button class="btnEmergencia" data-tipo="Festa hoje">Festa hoje</button>
+        <button class="btnEmergencia" data-tipo="Vazamento">Vazamento</button>
+        <button class="btnEmergencia" data-tipo="Outro problema">Outro problema</button>
+      </div>
+      <textarea id="descricaoEmergencia" placeholder="Descreva melhor o problema (opcional)"></textarea>
+      <button id="btnEnviarEmergencia">Enviar emergência</button>
+      <p id="statusEmergencia"></p>
+    </section>
+  </main>
+
+  <!-- SDKs DO FIREBASE (iguais ao index.html) -->
+  <script src="https://www.gstatic.com/firebasejs/8.10.1/firebase-app.js"></script>
+  <script src="https://www.gstatic.com/firebasejs/8.10.1/firebase-auth.js"></script>
+  <script src="https://www.gstatic.com/firebasejs/8.10.1/firebase-firestore.js"></script>
+
+  <!-- SEUS ARQUIVOS JS NA RAIZ -->
+  <script src="../firebase.js"></script>
+  <script src="../auth.js"></script>
+
+  <!-- JS ESPECÍFICO DO DASHBOARD DO CLIENTE (NA PASTA assetsjs) -->
+  <script src="../assetsjs/dashboard-cliente.js"></script>
+</body>
+</html>
